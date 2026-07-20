@@ -172,8 +172,15 @@ def decision_create_view(request, project_id):
             return redirect("decision_hub:decision_detail", decision_id=decision.id)
         else:
             messages.error(request, "Error creating decision. Please check form inputs.")
+    else:
+        form = DecisionForm()
 
-    return redirect("decision_hub:project_detail", project_id=project.id)
+    return render(request, "decision_hub/decision_create.html", {
+        "project": project,
+        "form": form,
+        "page_title": f"Add New Decision to {project.title}"
+    })
+
 
 
 @login_required(login_url="login")
